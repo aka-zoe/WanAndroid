@@ -44,4 +44,7 @@ dependencies {
     api libs.squareup.retrofit2.converter.gson
     api libs.squareup.retrofit2.adapter.rxjava2
 
+
+    //utils工具库
+    implementation libs.utilcodex
 }

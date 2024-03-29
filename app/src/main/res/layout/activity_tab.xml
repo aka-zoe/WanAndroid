@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="homeVm"
+            type="com.zoe.wan.android.activity.home.vm.TabViewModel" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.home.TabActivity">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/tabViewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal" />
+
+
+        <com.zoe.wan.base.tab.NavigationBottomBar
+            android:id="@+id/tabBottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>
+

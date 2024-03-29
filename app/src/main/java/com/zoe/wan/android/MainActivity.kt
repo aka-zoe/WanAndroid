@@ -1,46 +1,57 @@
 package com.zoe.wan.android
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.zoe.wan.android.ui.theme.WanAndroidTheme
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.blankj.utilcode.util.LogUtils
+import com.zoe.wan.android.common.CommonItemListAdapter
+import com.zoe.wan.android.databinding.FragmentItemListBinding
+import com.zoe.wan.android.fragment.item.vm.ItemListViewModel
+import com.zoe.wan.base.BaseActivity
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            WanAndroidTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+class MainActivity : BaseActivity<FragmentItemListBinding, ItemListViewModel>() {
+
+    private var websiteListAdapter = CommonItemListAdapter()
+    private var hotKeyListAdapter = CommonItemListAdapter()
+
+    override fun initVariableId(): Int {
+        return BR.itemListVm
+    }
+
+    override fun initContentView(savedInstanceState: Bundle?): Int {
+        return R.layout.fragment_item_list
+    }
+
+    override fun initView() {
+        initListView()
+
+        viewModel?.hotKeyList?.observe(this) {
+            it?.forEach { item ->
+                LogUtils.d("initViewObservable hotKeyList item = ${item.toString()}")
             }
+            hotKeyListAdapter.setDataList(it ?: emptyList())
+        }
+
+        viewModel?.commonUseWebsiteList?.observe(this) {
+            it?.forEach { item ->
+                LogUtils.d("initViewObservable commonUseWebsiteList item = ${item.toString()}")
+            }
+            websiteListAdapter.setDataList(it ?: emptyList())
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    private fun initListView() {
+        binding?.commonWebSiteListView?.layoutManager = StaggeredGridLayoutManager(
+            3,
+            StaggeredGridLayoutManager.VERTICAL
+        )
+        binding?.commonWebSiteListView?.adapter = websiteListAdapter
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    WanAndroidTheme {
-        Greeting("Android")
+
+        binding?.searchHotKeyListView?.layoutManager = StaggeredGridLayoutManager(
+            3,
+            StaggeredGridLayoutManager.VERTICAL
+        )
+        binding?.searchHotKeyListView?.adapter = hotKeyListAdapter
     }
+
 }

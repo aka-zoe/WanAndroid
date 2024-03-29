@@ -50,6 +50,8 @@ android {
 
 dependencies {
 
+
+
     //----http与base中已有，app不再依赖
 //    //kotlin核心库
 //    implementation libs.androidx.core.ktx
@@ -69,6 +71,15 @@ dependencies {
 //    implementation libs.androidx.ui.tooling.preview
 //    implementation libs.androidx.material3
 //    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.viewpager2
+
+    //图片轮播框架依赖
+    implementation libs.banner
+    //glide
+    implementation libs.glide
+    implementation libs.androidx.cardview
+
 
     //junit单元测试
     testImplementation libs.junit

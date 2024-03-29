@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+
+        <variable
+            name="itemListVm"
+            type="com.zoe.wan.android.fragment.item.vm.ItemListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:background="@color/black_60"
+                    android:gravity="start|center"
+                    android:paddingStart="@dimen/dp_12"
+                    android:text="搜索热点"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_17" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchHotKeyListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:background="@color/black_60"
+                    android:gravity="start|center"
+                    android:paddingStart="@dimen/dp_12"
+                    android:text="常用网站"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_17" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commonWebSiteListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

@@ -4,27 +4,19 @@ import java.io.Serializable
 
 class BaseResponse<T> : Serializable {
 
-    private var message: String? = null
-    private var code: Int? = null
+    private var errorMsg: String? = null
+    //errorCode = 0 代表执行成功，不建议依赖任何非0的 errorCode.
+    //errorCode = -1001 代表登录失效，需要重新登录。
+    private var errorCode: Int? = null
     private var data: T? = null
-    private var result = false
 
 
-    fun isResult(): Boolean {
-        return result
+    fun getErrMsg(): String? {
+        return errorMsg
     }
 
-    fun setResult(result: Boolean) {
-        this.result = result
-    }
-
-
-    fun getMessage(): String? {
-        return message
-    }
-
-    fun setMessage(message: String?) {
-        this.message = message
+    fun setErrMsg(message: String?) {
+        this.errorMsg = message
     }
 
     fun getData(): T? {
@@ -36,20 +28,11 @@ class BaseResponse<T> : Serializable {
     }
 
     fun getErrCode(): Int? {
-        return code
+        return errorCode
     }
 
-    fun setErroCode(erroCode: Int?) {
-        this.code = erroCode
-    }
-
-    override fun toString(): String {
-        return "BaseResponse{" +
-            ", message='" + message + '\'' +
-            ", code=" + code +
-            ", data=" + data +
-            ", result=" + result +
-            '}'
+    fun setErrCode(errCode: Int?) {
+        this.errorCode = errCode
     }
 }
 

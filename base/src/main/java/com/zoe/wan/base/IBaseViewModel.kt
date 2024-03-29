@@ -6,9 +6,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 
-interface IBaseViewModel
-
-    : LifecycleObserver {
+interface IBaseViewModel : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
     fun onAny(owner: LifecycleOwner?, event: Lifecycle.Event?)

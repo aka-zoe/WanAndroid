@@ -22,18 +22,16 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel> : RxAppComp
     open var viewModelId = 0
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initViewDataBinding(savedInstanceState)
         //页面接受的参数方法
-        initParam()
+        initView()
         //私有的ViewModel与View的契约事件回调逻辑
         registerUIChangeLiveDataCallBack()
         //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
-        initViewObservable()
+        initObservableData()
     }
 
 
@@ -140,7 +138,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel> : RxAppComp
     /**
      * 提供livedata 或者flow 数据流观察回调
      */
-    override fun initViewObservable() {
+    override fun initObservableData() {
     }
 
     /**

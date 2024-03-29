@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
@@ -16,18 +15,11 @@ import com.trello.rxlifecycle2.components.support.RxFragment
 
 import java.lang.reflect.ParameterizedType
 
-abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragment(), IBaseView {
+abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragment(), IBaseFragView {
 
     open var binding: V? = null
     open var viewModel: VM? = null
     open var viewModelId = 0
-
-
-    @Deprecated("Deprecated in Java")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initParam()
-    }
 
 
     override fun onCreateView(
@@ -57,7 +49,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : RxFragmen
 
         //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
 
-        initViewObservable()
+        initViewData()
     }
 
     private fun registerUIChangeLiveDataCallBack() {

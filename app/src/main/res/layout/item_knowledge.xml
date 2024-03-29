@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="itemKnowledge"
+            type="com.zoe.wan.android.repository.data.KnowledgeItem" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_margin="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginVertical="@dimen/dp_10"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/itemKnowledgeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center"
+                android:paddingStart="@dimen/dp_10"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="我是标题" />
+
+            <TextView
+                android:id="@+id/itemKnowledgeSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginEnd="@dimen/dp_40"
+                android:gravity="start|center"
+                android:paddingStart="@dimen/dp_10"
+                android:textSize="@dimen/sp_13"
+                app:layout_constraintTop_toBottomOf="@+id/itemKnowledgeTitle"
+                tools:text="我是二级标题" />
+
+            <ImageView
+                android:id="@+id/itemKnowledgeArrow"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@drawable/img_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
