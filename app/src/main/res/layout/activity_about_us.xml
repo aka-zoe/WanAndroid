@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="aboutVm"
+            type="com.zoe.wan.android.activity.about.AboutUsViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:background="@color/teal_700">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aboutUsBack"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:background="@drawable/icon_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关于我们"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_40"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:background="@mipmap/ic_launcher_round"
+                app:shapeAppearance="@style/rounded_style"
+                app:strokeColor="@color/white"
+                app:strokeWidth="@dimen/dp_0_5" />
+
+            <TextView
+                android:id="@+id/aboutUsVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@{aboutVm.version}"
+                tools:text="v0.0.1" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/aboutUsHtmlText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="@{aboutVm.htmlText}" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>
+

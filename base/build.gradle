@@ -53,7 +53,7 @@ dependencies {
     api libs.androidx.appcompat
 
 
-    implementation libs.material.v140
+    api libs.material.v140
 
     //utils工具库
     api libs.utilcodex

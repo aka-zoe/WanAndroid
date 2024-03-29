@@ -13,30 +13,114 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/mineUserLinear"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:background="@color/teal_700"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/mineUserHead"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
+                android:background="@mipmap/ic_launcher_round"
+                app:shapeAppearance="@style/rounded_style"
+                app:strokeColor="@color/white"
+                app:strokeWidth="@dimen/dp_0_5" />
+
+            <TextView
+                android:id="@+id/mineUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="用户名"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/mineUserLinear">
 
-            <Button
-                android:id="@+id/mineLogin"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mineCollect"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/teal_700"
-                android:text="登录" />
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:layout_marginVertical="@dimen/dp_10"
+                android:background="@drawable/shape_mine_item_bg"
+                app:cardCornerRadius="@dimen/dp_10">
 
-            <Button
-                android:id="@+id/mineLoginOut"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dp_20"
+                    android:text="我的收藏"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@drawable/img_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mineAboutUs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                android:background="@color/teal_700"
-                android:text="退出登录" />
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:layout_marginVertical="@dimen/dp_10"
+                android:background="@drawable/shape_mine_item_bg"
+                app:cardCornerRadius="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dp_20"
+                    android:text="关于我们"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@drawable/img_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/mineLoginOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@color/teal_700"
+            android:text="退出登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
