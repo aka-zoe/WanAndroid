@@ -23,6 +23,9 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
 
     }
 
+    /**
+     * 注册
+     */
     fun login() {
         if (checkNull(username.get()) || checkNull(password.get())) {
             ToastUtils.showShort("输入不能为空")
@@ -39,6 +42,9 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    /**
+     * 注册
+     */
     fun register() {
         if (checkNull(username.get()) || checkNull(password.get()) || checkNull(passwordTwice.get())) {
             ToastUtils.showShort("输入不能为空")

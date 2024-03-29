@@ -1,5 +1,6 @@
 package com.zoe.wan.android.repository
 
+import com.blankj.utilcode.util.ToastUtils
 import com.zoe.wan.android.repository.data.CommonItemListData
 import com.zoe.wan.android.repository.data.HomeBannerData
 import com.zoe.wan.android.repository.data.HomeListData
@@ -8,8 +9,9 @@ import com.zoe.wan.android.repository.data.TopHomeListData
 import com.zoe.wan.android.repository.data.UserData
 import com.zoe.wan.http.BaseResponse
 import com.zoe.wan.http.RetrofitClient
-import okhttp3.MediaType
-import okhttp3.RequestBody
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 object Repository {
@@ -18,11 +20,7 @@ object Repository {
 
     suspend fun getHomeList(pageCount: String): HomeListData? {
         val data: BaseResponse<HomeListData> = getDefaultApi().homeList(pageCount)
-
-        if (data.getErrCode() == Success_Code) {
-            return data.getData()
-        }
-        return null
+        return responseCall(data)
 
     }
 
@@ -32,10 +30,7 @@ object Repository {
     suspend fun getTopHomeList(): TopHomeListData? {
         val data: BaseResponse<TopHomeListData?> = getDefaultApi().topHomeList()
 
-        if (data.getErrCode() == Success_Code) {
-            return data.getData()
-        }
-        return null
+        return responseCall(data)
 
     }
 
@@ -45,10 +40,7 @@ object Repository {
     suspend fun getHomeBanner(): HomeBannerData? {
         val data: BaseResponse<HomeBannerData> = getDefaultApi()
             .homeBanner()
-        if (data.getErrCode() == Success_Code) {
-            return data.getData()
-        }
-        return null
+        return responseCall(data)
 
     }
 
@@ -59,10 +51,7 @@ object Repository {
     suspend fun commonUseWebsite(): CommonItemListData? {
         val data: BaseResponse<CommonItemListData?> = getDefaultApi()
             .commonUseWebsite()
-        if (data.getErrCode() == Success_Code) {
-            return data.getData()
-        }
-        return null
+        return responseCall(data)
     }
 
     /**
@@ -70,10 +59,7 @@ object Repository {
      */
     suspend fun searchHotKeyList(): CommonItemListData? {
         val data: BaseResponse<CommonItemListData?> = getDefaultApi().searchHotKey()
-        if (data.getErrCode() == Success_Code) {
-            return data.getData()
-        }
-        return null
+        return responseCall(data)
     }
 
 
@@ -82,10 +68,7 @@ object Repository {
      */
     suspend fun knowledgeList(): KnowledgeListData? {
         val data: BaseResponse<KnowledgeListData?> = getDefaultApi().knowledgeList()
-        if (data.getErrCode() == Success_Code) {
-            return data.getData()
-        }
-        return null
+        return responseCall(data)
     }
 
     /**
@@ -93,25 +76,20 @@ object Repository {
      */
     suspend fun login(username: String, password: String): UserData? {
         val data: BaseResponse<UserData?> = getDefaultApi().login(username, password)
-        if (data.getErrCode() == Success_Code) {
-            return data.getData()
-        }
-        return null
+        return responseCall(data)
     }
 
     /**
      * 注册
      */
     suspend fun register(username: String, password: String, passwordTwice: String): UserData? {
-        val data: BaseResponse<UserData?> = getDefaultApi().register(
+        val data: BaseResponse<UserData?>? = getDefaultApi().register(
             username,
             password,
             passwordTwice
         )
-        if (data.getErrCode() == Success_Code) {
-            return data.getData()
-        }
-        return null
+        return responseCall(data)
+
     }
 
     /**
@@ -122,21 +100,28 @@ object Repository {
         return data.getErrCode() == Success_Code
     }
 
-    /**
-     * 转换为 form-data
-     * @param requestDataMap
-     * @return
-     */
-    private fun generateRequestBody(requestDataMap: Map<String, String>): Map<String, RequestBody> {
-        val requestBodyMap: MutableMap<String, RequestBody> = HashMap()
-        for (key in requestDataMap.keys) {
-            val requestBody = RequestBody.create(
-                MediaType.parse("multipart/form-data"),
-                requestDataMap[key] ?: ""
-            )
-            requestBodyMap[key] = requestBody
+
+    private fun <T> responseCall(response: BaseResponse<T>?, needLogin: (() -> Unit?)? = null): T? {
+        if (response == null) {
+            GlobalScope.launch(Dispatchers.Main) {
+                ToastUtils.showShort("请求异常")
+            }
+            return null
         }
-        return requestBodyMap
+        if (response.getErrCode() == Success_Code) {
+            return response.getData()
+        } else if (response.getErrCode() == Need_login_Code) {
+            GlobalScope.launch(Dispatchers.Main) {
+                ToastUtils.showShort(response.getErrMsg() ?: "")
+            }
+            needLogin?.invoke()
+            return null
+        } else {
+            GlobalScope.launch(Dispatchers.Main) {
+                ToastUtils.showShort(response.getErrMsg() ?: "")
+            }
+            return null
+        }
     }
 
     private fun getDefaultApi(): ApiService {

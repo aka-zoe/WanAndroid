@@ -40,17 +40,25 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
         initListener()
 
+        //登录或者注册成功状态
         viewModel?.actionState?.observe(this) { state ->
             if (state == true) {
                 finish()
-                val intent = Intent(this@LoginActivity, TabActivity::class.java)
+                val intent: Intent?
+                //登录成功进入首页
+                if (type == loginType) {
+                    intent = Intent(this@LoginActivity, TabActivity::class.java)
+                } else {
+                    //注册成功进入登录页
+                    intent = Intent(this@LoginActivity, LoginActivity::class.java)
+                }
                 startActivity(intent)
             }
         }
     }
 
     private fun initListener() {
-        //按钮事件
+        //登录/注册 按钮事件
         binding?.loginOrRegisterBtn?.setOnClickListener {
             if (type == loginType) {
                 //登录
