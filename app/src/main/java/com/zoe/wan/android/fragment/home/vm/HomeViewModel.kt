@@ -2,7 +2,6 @@ package com.zoe.wan.android.fragment.home.vm
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import com.blankj.utilcode.util.LogUtils
 import com.zoe.wan.android.repository.data.HomeListData
 import com.zoe.wan.android.repository.Repository
 import com.zoe.wan.android.repository.data.HomeBannerData
@@ -29,7 +28,6 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
      */
     private fun getTopList(callback: (List<HomeListItemData?>?) -> Unit) {
         viewModelScope.launch {
-            LogUtils.d("查看当前线程 getTopList ${Thread.currentThread().id}")
             var data: TopHomeListData? = Repository.getTopHomeList()
 
             if (data?.isNotEmpty() == true) {
@@ -42,7 +40,6 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     private fun getHomeList(topList: List<HomeListItemData?>?) {
         viewModelScope.launch {
-            LogUtils.d("查看当前线程 getHomeList ${Thread.currentThread().id}")
             var data: HomeListData? = Repository.getHomeList("0")
             if (data?.datas?.isNotEmpty() == true) {
                 //置顶列表与文章列表数据类型是一致的，将两个list组合在一起
@@ -58,6 +55,22 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         viewModelScope.launch {
             var data: HomeBannerData? = Repository.getHomeBanner()
             bannerData.postValue(data)
+        }
+    }
+
+    //点击收藏
+    fun collect(id: String, callback: (state: Boolean) -> Unit) {
+        viewModelScope.launch {
+            val data = Repository.collect(id)
+            callback.invoke(data)
+        }
+    }
+
+    //取消收藏
+    fun cancelCollect(id: String, callback: (state: Boolean) -> Unit) {
+        viewModelScope.launch {
+            val data = Repository.cancelCollect(id)
+            callback.invoke(data)
         }
     }
 }

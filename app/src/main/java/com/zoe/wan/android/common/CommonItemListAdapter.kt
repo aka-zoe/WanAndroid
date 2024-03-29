@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.LogUtils
 import com.zoe.wan.android.R
 import com.zoe.wan.android.databinding.ItemItemBinding
 import com.zoe.wan.android.repository.data.CommonItem
@@ -41,7 +40,6 @@ class CommonItemListAdapter : RecyclerView.Adapter<CommonItemListAdapter.ItemVie
 
         holder.binding.itemData = item
         holder.binding.itemKeyName.text = item.name
-        LogUtils.d("onBindViewHolder ${item.name}")
     }
 
     class ItemViewHolder(itemBinding: ItemItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {

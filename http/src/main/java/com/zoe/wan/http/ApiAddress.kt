@@ -29,6 +29,12 @@ object ApiAddress {
     //登出
     const val Logout = "user/logout/json"
 
+    //收藏文章列表
+    const val Collect = "lg/collect/"
+
+    //取消收藏文章列表
+    const val Collect_Cancel= "lg/uncollect_originId/"
+
 
     /**
      * 首页文章列表

@@ -23,39 +23,39 @@ interface ApiService {
      * 获取首页列表数据
      */
     @GET(ApiAddress.Article_List + "{pageCount}/json")
-    suspend fun homeList(@Path("pageCount") pageCount: String): BaseResponse<HomeListData>
+    suspend fun homeList(@Path("pageCount") pageCount: String): BaseResponse<HomeListData>?
 
 
     /**
      * 获取首页置顶列表数据
      */
     @GET(ApiAddress.Top_Article_List)
-    suspend fun topHomeList(): BaseResponse<TopHomeListData?>
+    suspend fun topHomeList(): BaseResponse<TopHomeListData?>?
 
     /**
      * 获取banner数据
      */
     @GET(ApiAddress.Home_Banner)
-    suspend fun homeBanner(): BaseResponse<HomeBannerData>
+    suspend fun homeBanner(): BaseResponse<HomeBannerData>?
 
     /**
      * 常用网站
      */
     @GET(ApiAddress.Common_Use_Website)
-    suspend fun commonUseWebsite(): BaseResponse<CommonItemListData?>
+    suspend fun commonUseWebsite(): BaseResponse<CommonItemListData?>?
 
 
     /**
      * 搜索热词
      */
     @GET(ApiAddress.Search_Hot_Key)
-    suspend fun searchHotKey(): BaseResponse<CommonItemListData?>
+    suspend fun searchHotKey(): BaseResponse<CommonItemListData?>?
 
     /**
      * 获取知识体系数据
      */
     @GET(ApiAddress.Knowledge_List)
-    suspend fun knowledgeList(): BaseResponse<KnowledgeListData?>
+    suspend fun knowledgeList(): BaseResponse<KnowledgeListData?>?
 
     /**
      * 登录
@@ -64,7 +64,7 @@ interface ApiService {
     @POST(ApiAddress.Login)
     suspend fun login(
         @Field("username") username: String, @Field("password") password: String
-    ): BaseResponse<UserData?>
+    ): BaseResponse<UserData?>?
 
 
     /**
@@ -81,7 +81,19 @@ interface ApiService {
      * 登出
      */
     @GET(ApiAddress.Logout)
-    suspend fun logout(): BaseResponse<Any>
+    suspend fun logout(): BaseResponse<Any>?
+
+    /**
+     * 点击收藏（文章列表）
+     */
+    @POST(ApiAddress.Collect + "{id}/json")
+    suspend fun collect(@Path("id") id: String):BaseResponse<Any>?
+
+    /**
+     * 取消收藏（文章列表）
+     */
+    @POST(ApiAddress.Collect_Cancel+"{id}/json")
+    suspend fun cancelCollect(@Path("id") id: String):BaseResponse<Any>?
 
     /**
      * post body

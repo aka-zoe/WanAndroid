@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.LogUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -39,14 +38,30 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var list: List<HomeListItemData?> = arrayListOf()
     private var homeBannerData: HomeBannerData? = null
+    private var collectListener: AdapterCollectListener? = null
     fun setListData(list: List<HomeListItemData?>) {
-        LogUtils.d("查看当前线程 setListData ${Thread.currentThread().id}")
         this.list = list
         notifyDataSetChanged()
     }
 
     fun setBannerData(bannerData: HomeBannerData?) {
         this.homeBannerData = bannerData
+        notifyDataSetChanged()
+    }
+
+    fun setCollectListener(listener: AdapterCollectListener) {
+        this.collectListener = listener
+    }
+
+    /**
+     * 收藏状态刷新
+     */
+    fun notifyCollectChange(position: Int, collect: Boolean) {
+        if (list.isEmpty()) {
+            return
+        }
+
+        list[position]?.collect = collect
         notifyDataSetChanged()
     }
 
@@ -68,10 +83,18 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    interface AdapterCollectListener {
+        fun collect(position: Int, id: String)
+
+        fun cancelCollect(position: Int, id: String)
+    }
+
     /**
      * 判断当前的item类型
      */
-    override fun getItemViewType(position: Int): Int {
+    override
+
+    fun getItemViewType(position: Int): Int {
         if (HeaderCount != 0 && position < HeaderCount) {
             return ItemTypeBannerHeader
         } else {
@@ -107,20 +130,28 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return list.size
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         //绑定viewHolder，数据绑定
         if (holder is MyViewHolder) {
             val item: HomeListItemData? = list[position]
             holder.itemDataBind.item = item
-            if (list[position]?.type == 1) {
+            //文章是否收藏状态
+            if (item?.collect == true) {
+                holder.itemDataBind.itemHomeCollect.setBackgroundResource(R.drawable.img_collect)
+            } else {
+                holder.itemDataBind.itemHomeCollect.setBackgroundResource(
+                    R.drawable
+                        .img_collect_grey
+                )
+            }
+            //是否置顶
+            if (item?.type == 1) {
                 holder.itemDataBind.itemHomeTopTag.text = "置顶"
             } else {
                 holder.itemDataBind.itemHomeTopTag.text = ""
             }
             //点击进入链接
             holder.itemDataBind.itemHomeLinear.setOnClickListener {
-                val item: HomeListItemData? = list[position]
                 var intent = Intent(it.context, WebActivity::class.java)
                 intent.putExtra(WebActivity.intentKeyTitle, item?.title)
                 intent.putExtra(WebActivity.intentKeyUrl, item?.link)
@@ -131,6 +162,17 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             //点击查看专栏
             holder.itemDataBind.itemHomeChapter.setOnClickListener {
                 Toast.makeText(it.context, "Chapter被点击了", Toast.LENGTH_LONG).show()
+            }
+
+            //点击收藏/取消收藏
+            holder.itemDataBind.itemHomeCollect.setOnClickListener {
+                if (item?.collect == true) {
+                    //取消收藏
+                    collectListener?.cancelCollect(position, "${item.id}")
+                } else {
+                    //收藏
+                    collectListener?.collect(position, "${item?.id}")
+                }
             }
         } else if (holder is BannerViewHolder) {
             //banner标题

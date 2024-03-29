@@ -8,7 +8,8 @@ data class HomeListItemData(
     val canEdit: Boolean?,
     val chapterId: Int?,
     val chapterName: String?,
-    val collect: Boolean?,
+    //是否收藏
+    var collect: Boolean?,
     val courseId: Int?,
     val desc: String?,
     val descMd: String?,

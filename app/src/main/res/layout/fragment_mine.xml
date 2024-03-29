@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
                 android:background="@color/teal_700"
-                android:text="登出" />
+                android:text="退出登录" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

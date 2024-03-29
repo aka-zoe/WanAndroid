@@ -3,7 +3,6 @@ package com.zoe.wan.android.fragment.item
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.blankj.utilcode.util.LogUtils
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
 import com.zoe.wan.android.common.CommonItemListAdapter
@@ -33,16 +32,10 @@ class FragItemList : BaseFragment<FragmentItemListBinding, ItemListViewModel>() 
         initListView()
 
         viewModel?.hotKeyList?.observe(viewLifecycleOwner) {
-            it?.forEach { item ->
-                LogUtils.d("initViewObservable hotKeyList item = ${item.toString()}")
-            }
             hotKeyListAdapter.setDataList(it ?: emptyList())
         }
 
         viewModel?.commonUseWebsiteList?.observe(viewLifecycleOwner) {
-            it?.forEach { item ->
-                LogUtils.d("initViewObservable commonUseWebsiteList item = ${item.toString()}")
-            }
             websiteListAdapter.setDataList(it ?: emptyList())
         }
     }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.blankj.utilcode.util.LogUtils
 import com.zoe.wan.android.R
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.common.HomeListAdapter
@@ -38,12 +37,9 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
         //数据回调
         viewModel?.homeListData?.observe(viewLifecycleOwner) { list ->
-            LogUtils.d("livedata = ${list?.get(0)?.author}")
             if (list != null && list?.isNotEmpty() == true) {
-                LogUtils.d("查看当前线程 homeListData ${Thread.currentThread().id}")
                 //给适配器添加数据
                 binding?.homeTabListView?.post {
-                    LogUtils.d("查看当前线程 post ${Thread.currentThread().id}")
                     adapter.setListData(list)
                 }
 
@@ -53,9 +49,7 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
         viewModel?.bannerData?.observe(viewLifecycleOwner) { bannerData ->
             if (bannerData != null) {
-                LogUtils.d("查看当前线程 bannerData ${Thread.currentThread().id}")
                 binding?.homeTabListView?.post {
-                    LogUtils.d("查看当前线程 post ${Thread.currentThread().id}")
                     adapter.setBannerData(bannerData)
                 }
 
@@ -65,11 +59,31 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
 
     private fun initListView() {
-        LogUtils.d("查看当前线程 initListView ${Thread.currentThread().id}")
         val manager = LinearLayoutManager(context)
         manager.orientation = LinearLayoutManager.VERTICAL
         binding?.homeTabListView?.layoutManager = manager
         binding?.homeTabListView?.adapter = adapter
+
+        adapter.setCollectListener(object : HomeListAdapter.AdapterCollectListener {
+            override fun collect(position: Int, id: String) {
+                viewModel?.collect(id) {
+                    if (it) {
+                        //收藏状态刷新
+                        adapter.notifyCollectChange(position, true)
+                    }
+                }
+            }
+
+            override fun cancelCollect(position: Int, id: String) {
+                viewModel?.cancelCollect(id) {
+                    if (it) {
+                        //收藏状态刷新
+                        adapter.notifyCollectChange(position, false)
+                    }
+                }
+            }
+
+        })
         //添加分割线
 //        binding?.homeTabListView?.addItemDecoration(
 //            DividerItemDecoration(

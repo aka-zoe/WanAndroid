@@ -109,9 +109,11 @@
                         tools:text="专栏名称" />
 
                     <ImageView
+                        android:id="@+id/itemHomeCollect"
                         android:layout_width="@dimen/dp_24"
                         android:layout_height="@dimen/dp_24"
-                        android:background="@mipmap/ic_launcher" />
+                        android:layout_margin="@dimen/dp_5"
+                        android:background="@drawable/img_collect_grey" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
