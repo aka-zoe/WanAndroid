@@ -6,7 +6,7 @@
 
         <variable
             name="itemListVm"
-            type="com.zoe.wan.android.fragment.item.vm.ItemListViewModel" />
+            type="com.zoe.wan.android.fragment.common.CommonListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,15 +23,32 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_52"
-                    android:background="@color/black_60"
-                    android:gravity="start|center"
-                    android:paddingStart="@dimen/dp_12"
-                    android:text="搜索热点"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_17" />
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_45"
+                        android:layout_weight="1"
+                        android:gravity="start|center"
+                        android:paddingStart="@dimen/dp_12"
+                        android:text="搜索热点"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_17"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_marginHorizontal="@dimen/dp_10"
+                        android:id="@+id/commonSearch"
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:background="@drawable/icon_search" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/searchHotKeyListView"
@@ -40,13 +57,13 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_52"
-                    android:background="@color/black_60"
+                    android:layout_height="@dimen/dp_45"
                     android:gravity="start|center"
                     android:paddingStart="@dimen/dp_12"
                     android:text="常用网站"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_17" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_17"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/commonWebSiteListView"

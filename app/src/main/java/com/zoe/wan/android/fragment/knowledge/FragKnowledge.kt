@@ -8,7 +8,6 @@ import com.zoe.wan.android.R
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.common.KnowledgeListAdapter
 import com.zoe.wan.android.databinding.FragmentKnowledgeBinding
-import com.zoe.wan.android.fragment.knowledge.vm.KnowledgeViewModel
 import com.zoe.wan.base.BaseFragment
 
 /**

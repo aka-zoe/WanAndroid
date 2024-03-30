@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zoe.wan.android.R
 import com.zoe.wan.android.BR
+import com.zoe.wan.android.common.AdapterCollectListener
 import com.zoe.wan.android.common.HomeListAdapter
 import com.zoe.wan.android.databinding.FragmentHomeBinding
-import com.zoe.wan.android.fragment.home.vm.HomeViewModel
+import com.zoe.wan.android.repository.data.HomeListItemData
 import com.zoe.wan.base.BaseFragment
 
 /**
@@ -64,7 +65,7 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         binding?.homeTabListView?.layoutManager = manager
         binding?.homeTabListView?.adapter = adapter
 
-        adapter.setCollectListener(object : HomeListAdapter.AdapterCollectListener {
+        adapter.setCollectListener(object : AdapterCollectListener<HomeListItemData?>() {
             override fun collect(position: Int, id: String) {
                 viewModel?.collect(id) {
                     if (it) {

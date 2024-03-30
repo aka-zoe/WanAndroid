@@ -8,17 +8,25 @@ import com.zoe.wan.android.R
 import com.zoe.wan.android.databinding.ItemItemBinding
 import com.zoe.wan.android.repository.data.CommonItem
 
+/**
+ * 热点/常用网站item列表适配器
+ */
 class CommonItemListAdapter : RecyclerView.Adapter<CommonItemListAdapter.ItemViewHolder>() {
 
     private var dataList = mutableListOf<CommonItem>()
+    private var itemClick: AdapterItemListener<CommonItem>? = null
 
     fun setDataList(list: List<CommonItem>?) {
         if (list != null) {
-            this.dataList?.clear()
+            this.dataList.clear()
             this.dataList.addAll(list)
             notifyDataSetChanged()
         }
 
+    }
+
+    fun setItemClick(listener: AdapterItemListener<CommonItem>) {
+        this.itemClick = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -40,6 +48,9 @@ class CommonItemListAdapter : RecyclerView.Adapter<CommonItemListAdapter.ItemVie
 
         holder.binding.itemData = item
         holder.binding.itemKeyName.text = item.name
+        holder.binding.itemCard.setOnClickListener {
+            this.itemClick?.itemClick(item, position)
+        }
     }
 
     class ItemViewHolder(itemBinding: ItemItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {

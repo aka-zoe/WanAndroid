@@ -1,4 +1,4 @@
-package com.zoe.wan.android.fragment.mine.vm
+package com.zoe.wan.android.fragment.mine
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope

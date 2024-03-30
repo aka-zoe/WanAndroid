@@ -1,4 +1,4 @@
-package com.zoe.wan.android.fragment.knowledge.vm
+package com.zoe.wan.android.fragment.knowledge
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope

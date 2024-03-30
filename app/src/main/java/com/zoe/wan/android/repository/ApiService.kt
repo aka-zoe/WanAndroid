@@ -4,6 +4,7 @@ import com.zoe.wan.android.repository.data.CommonItemListData
 import com.zoe.wan.android.repository.data.HomeBannerData
 import com.zoe.wan.android.repository.data.HomeListData
 import com.zoe.wan.android.repository.data.KnowledgeListData
+import com.zoe.wan.android.repository.data.SearchResultsData
 import com.zoe.wan.android.repository.data.TopHomeListData
 import com.zoe.wan.android.repository.data.UserData
 import com.zoe.wan.http.ApiAddress
@@ -87,13 +88,22 @@ interface ApiService {
      * 点击收藏（文章列表）
      */
     @POST(ApiAddress.Collect + "{id}/json")
-    suspend fun collect(@Path("id") id: String):BaseResponse<Any>?
+    suspend fun collect(@Path("id") id: String): BaseResponse<Any>?
 
     /**
      * 取消收藏（文章列表）
      */
-    @POST(ApiAddress.Collect_Cancel+"{id}/json")
-    suspend fun cancelCollect(@Path("id") id: String):BaseResponse<Any>?
+    @POST(ApiAddress.Collect_Cancel + "{id}/json")
+    suspend fun cancelCollect(@Path("id") id: String): BaseResponse<Any>?
+
+
+    /**
+     * 搜索
+     */
+    @FormUrlEncoded
+    @POST(ApiAddress.Search + "{pageCount}/json")
+    suspend fun search(@Path("pageCount") pageCount: String = "0", @Field("k") keyWord: String)
+        : BaseResponse<SearchResultsData?>?
 
     /**
      * post body

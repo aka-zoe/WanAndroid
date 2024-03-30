@@ -1,4 +1,4 @@
-package com.zoe.wan.android.fragment.home.vm
+package com.zoe.wan.android.fragment.home
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope

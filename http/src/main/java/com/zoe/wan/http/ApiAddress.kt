@@ -35,6 +35,9 @@ object ApiAddress {
     //取消收藏文章列表
     const val Collect_Cancel= "lg/uncollect_originId/"
 
+    //搜索
+    const val Search= "article/query/"
+
 
     /**
      * 首页文章列表

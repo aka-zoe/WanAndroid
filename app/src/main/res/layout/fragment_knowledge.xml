@@ -7,7 +7,7 @@
 
         <variable
             name="fragKlVm"
-            type="com.zoe.wan.android.fragment.knowledge.vm.KnowledgeViewModel" />
+            type="com.zoe.wan.android.fragment.knowledge.KnowledgeViewModel" />
 
     </data>
 

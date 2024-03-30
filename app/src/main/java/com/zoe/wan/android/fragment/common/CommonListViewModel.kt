@@ -1,4 +1,4 @@
-package com.zoe.wan.android.fragment.item.vm
+package com.zoe.wan.android.fragment.common
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
@@ -9,7 +9,7 @@ import com.zoe.wan.base.BaseViewModel
 import com.zoe.wan.base.SingleLiveEvent
 import kotlinx.coroutines.launch
 
-class ItemListViewModel(application: Application) : BaseViewModel(application) {
+class CommonListViewModel(application: Application) : BaseViewModel(application) {
 
     var hotKeyList = SingleLiveEvent<List<CommonItem>?>()
     var commonUseWebsiteList = SingleLiveEvent<List<CommonItem>?>()

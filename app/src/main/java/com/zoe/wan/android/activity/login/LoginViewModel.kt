@@ -1,4 +1,4 @@
-package com.zoe.wan.android.activity.login.vm
+package com.zoe.wan.android.activity.login
 
 import android.app.Application
 import androidx.databinding.ObservableField

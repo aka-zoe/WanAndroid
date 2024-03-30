@@ -3,7 +3,6 @@ package com.zoe.wan.android.activity.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.zoe.wan.android.activity.login.vm.LoginViewModel
 import com.zoe.wan.android.databinding.ActivityLoginBinding
 import com.zoe.wan.base.BaseActivity
 import com.zoe.wan.android.BR

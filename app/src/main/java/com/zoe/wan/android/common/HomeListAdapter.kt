@@ -38,7 +38,7 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var list: List<HomeListItemData?> = arrayListOf()
     private var homeBannerData: HomeBannerData? = null
-    private var collectListener: AdapterCollectListener? = null
+    private var collectListener: AdapterCollectListener<HomeListItemData?>? = null
     fun setListData(list: List<HomeListItemData?>) {
         this.list = list
         notifyDataSetChanged()
@@ -49,7 +49,7 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setCollectListener(listener: AdapterCollectListener) {
+    fun setCollectListener(listener: AdapterCollectListener<HomeListItemData?>?) {
         this.collectListener = listener
     }
 
@@ -83,11 +83,11 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    interface AdapterCollectListener {
-        fun collect(position: Int, id: String)
-
-        fun cancelCollect(position: Int, id: String)
-    }
+//    interface AdapterCollectListener {
+//        fun collect(position: Int, id: String)
+//
+//        fun cancelCollect(position: Int, id: String)
+//    }
 
     /**
      * 判断当前的item类型

@@ -5,6 +5,7 @@ import com.zoe.wan.android.repository.data.CommonItemListData
 import com.zoe.wan.android.repository.data.HomeBannerData
 import com.zoe.wan.android.repository.data.HomeListData
 import com.zoe.wan.android.repository.data.KnowledgeListData
+import com.zoe.wan.android.repository.data.SearchResultsData
 import com.zoe.wan.android.repository.data.TopHomeListData
 import com.zoe.wan.android.repository.data.UserData
 import com.zoe.wan.http.BaseResponse
@@ -114,6 +115,16 @@ object Repository {
     suspend fun cancelCollect(id: String): Boolean {
         val data: BaseResponse<Any>? = getDefaultApi().cancelCollect(id)
         return responseNoDataCall(data)
+    }
+
+    /**
+     * 搜索
+     */
+    suspend fun search(pageCount: String = "0", keyWord: String): SearchResultsData? {
+        val data: BaseResponse<SearchResultsData?>? = getDefaultApi().search(
+            pageCount = pageCount, keyWord = keyWord
+        )
+        return responseCall(data)
     }
 
     /**

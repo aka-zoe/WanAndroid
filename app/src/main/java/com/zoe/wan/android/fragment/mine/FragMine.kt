@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.blankj.utilcode.util.ToastUtils
 import com.zoe.wan.android.databinding.FragmentMineBinding
-import com.zoe.wan.android.fragment.mine.vm.MineViewModel
 import com.zoe.wan.base.BaseFragment
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R

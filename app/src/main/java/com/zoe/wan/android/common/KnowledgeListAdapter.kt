@@ -9,6 +9,9 @@ import com.zoe.wan.android.databinding.ItemKnowledgeBinding
 import com.zoe.wan.android.repository.data.KnowledgeItem
 import java.lang.StringBuilder
 
+/**
+ * 知识体系列表适配器
+ */
 class KnowledgeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var dataList: List<KnowledgeItem?>? = mutableListOf()

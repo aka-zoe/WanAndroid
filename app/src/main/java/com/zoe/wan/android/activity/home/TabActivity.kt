@@ -7,10 +7,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.LogUtils
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
-import com.zoe.wan.android.activity.home.vm.TabViewModel
 import com.zoe.wan.android.databinding.ActivityTabBinding
 import com.zoe.wan.android.fragment.home.FragHome
-import com.zoe.wan.android.fragment.item.FragItemList
+import com.zoe.wan.android.fragment.common.FragCommon
 import com.zoe.wan.android.fragment.knowledge.FragKnowledge
 import com.zoe.wan.android.fragment.mine.FragMine
 import com.zoe.wan.base.BaseActivity
@@ -59,7 +58,7 @@ class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
     private fun initPageModule() {
         val pageFragList = mutableListOf<Fragment>()
         pageFragList.add(FragHome())
-        pageFragList.add(FragItemList())
+        pageFragList.add(FragCommon())
         pageFragList.add(FragKnowledge())
         pageFragList.add(FragMine())
 
