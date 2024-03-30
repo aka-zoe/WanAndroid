@@ -83,19 +83,12 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-//    interface AdapterCollectListener {
-//        fun collect(position: Int, id: String)
-//
-//        fun cancelCollect(position: Int, id: String)
-//    }
 
     /**
      * 判断当前的item类型
      */
-    override
-
-    fun getItemViewType(position: Int): Int {
-        if (HeaderCount != 0 && position < HeaderCount) {
+    override fun getItemViewType(position: Int): Int {
+        if(HeaderCount != 0 && position < HeaderCount) {
             return ItemTypeBannerHeader
         } else {
             return ItemTypeList
