@@ -15,12 +15,17 @@ import java.lang.StringBuilder
 class KnowledgeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var dataList: List<KnowledgeItem?>? = mutableListOf()
+    private var itemClick: AdapterItemListener<KnowledgeItem>? = null
 
     fun setDataList(list: List<KnowledgeItem?>?) {
         if (list?.isNotEmpty() == true) {
             dataList = list
             notifyDataSetChanged()
         }
+    }
+
+    fun setItemClick(listener: AdapterItemListener<KnowledgeItem>) {
+        this.itemClick = listener
     }
 
     class KnowledgeViewHolder(itemKnowledgeBinding: ItemKnowledgeBinding) : RecyclerView.ViewHolder
@@ -47,17 +52,20 @@ class KnowledgeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is KnowledgeViewHolder) {
-
-            holder.binding.itemKnowledgeTitle.text = dataList?.get(position)?.name
+            val item = dataList?.get(position)
+            holder.binding.itemKnowledgeTitle.text = item?.name
             val sb = StringBuilder()
-            dataList?.get(position)?.children?.forEach { child ->
+            item?.children?.forEach { child ->
                 child?.name?.let {
                     sb.append(it)
                     sb.append("  ")
                 }
             }
             holder.binding.itemKnowledgeSubTitle.text = sb.toString()
-
+            //点击进入明细列表
+            holder.binding.itemKnowledgeRoot.setOnClickListener {
+                itemClick?.itemClick(item, position)
+            }
         }
     }
 }

@@ -23,12 +23,14 @@ rxlifecycleComponents = "2.2.2"
 constraintlayout = "2.1.4"
 utilcodex = "1.31.0"
 viewpager2 = "1.0.0"
+viewpagerz = "1.0.0"
 
 [libraries]
 #api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1' //协程
 #api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 #implementation 'io.github.youth5201314:banner:2.2.3'
 androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
+androidx-viewpagerz = { module = "androidx.viewpager2:viewpagerz", version.ref = "viewpagerz" }
 banner = { module = "io.github.youth5201314:banner", version.ref = "banner" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 material-v140 = { module = "com.google.android.material:material", version.ref = "materialVersion" }

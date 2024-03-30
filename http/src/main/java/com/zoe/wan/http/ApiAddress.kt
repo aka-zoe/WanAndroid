@@ -20,6 +20,9 @@ object ApiAddress {
     //知识体系数据
     const val Knowledge_List = "tree/json"
 
+    //知识体系数据明细
+    const val Knowledge_List_detail = "article/list/0/json?cid=60"
+
     //登录
     const val Login = "user/login"
 
@@ -37,6 +40,9 @@ object ApiAddress {
 
     //搜索
     const val Search= "article/query/"
+
+    //我的收藏：文章列表
+    const val My_Collect= "lg/collect/list/"
 
 
     /**

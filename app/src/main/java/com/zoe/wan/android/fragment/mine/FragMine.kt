@@ -10,6 +10,7 @@ import com.zoe.wan.base.BaseFragment
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
 import com.zoe.wan.android.activity.about.AboutUsActivity
+import com.zoe.wan.android.activity.collect.MyCollectActivity
 import com.zoe.wan.android.activity.login.LoginActivity
 
 class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
@@ -52,7 +53,9 @@ class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
         }
 
         //进入我的收藏
-        binding?.mineCollect?.setOnClickListener { }
+        binding?.mineCollect?.setOnClickListener {
+            startActivity(Intent(context, MyCollectActivity::class.java))
+        }
 
         //关于我们
         binding?.mineAboutUs?.setOnClickListener {

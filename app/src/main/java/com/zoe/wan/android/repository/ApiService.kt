@@ -3,7 +3,9 @@ package com.zoe.wan.android.repository
 import com.zoe.wan.android.repository.data.CommonItemListData
 import com.zoe.wan.android.repository.data.HomeBannerData
 import com.zoe.wan.android.repository.data.HomeListData
+import com.zoe.wan.android.repository.data.KnowledgeDetailListData
 import com.zoe.wan.android.repository.data.KnowledgeListData
+import com.zoe.wan.android.repository.data.MyCollectListData
 import com.zoe.wan.android.repository.data.SearchResultsData
 import com.zoe.wan.android.repository.data.TopHomeListData
 import com.zoe.wan.android.repository.data.UserData
@@ -16,6 +18,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -57,6 +60,16 @@ interface ApiService {
      */
     @GET(ApiAddress.Knowledge_List)
     suspend fun knowledgeList(): BaseResponse<KnowledgeListData?>?
+
+    /**
+     * 获取知识体系数据明细
+     */
+    @GET(ApiAddress.Knowledge_List_detail + "{pageCount}/json")
+    suspend fun knowledgeListDetail(
+        @Path("pageCount") pageCount: String = "0",
+        @Query("cid") cid: String
+    ): BaseResponse<KnowledgeDetailListData?>?
+
 
     /**
      * 登录
@@ -104,6 +117,13 @@ interface ApiService {
     @POST(ApiAddress.Search + "{pageCount}/json")
     suspend fun search(@Path("pageCount") pageCount: String = "0", @Field("k") keyWord: String)
         : BaseResponse<SearchResultsData?>?
+
+    /**
+     * 我的收藏：文章列表
+     */
+    @GET(ApiAddress.My_Collect + "{pageCount}/json")
+    suspend fun myCollects(@Path("pageCount") pageCount: String = "0")
+        : BaseResponse<MyCollectListData?>?
 
     /**
      * post body

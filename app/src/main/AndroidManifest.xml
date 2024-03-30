@@ -30,6 +30,8 @@
         <activity android:name=".activity.about.AboutUsActivity" />
         <activity android:name=".activity.search.SearchActivity" />
         <activity android:name=".debug.DebugActivity" />
+        <activity android:name=".activity.collect.MyCollectActivity"/>
+        
     </application>
 
 </manifest>

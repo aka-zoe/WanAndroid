@@ -5,6 +5,7 @@ import com.zoe.wan.android.repository.data.CommonItemListData
 import com.zoe.wan.android.repository.data.HomeBannerData
 import com.zoe.wan.android.repository.data.HomeListData
 import com.zoe.wan.android.repository.data.KnowledgeListData
+import com.zoe.wan.android.repository.data.MyCollectListData
 import com.zoe.wan.android.repository.data.SearchResultsData
 import com.zoe.wan.android.repository.data.TopHomeListData
 import com.zoe.wan.android.repository.data.UserData
@@ -124,6 +125,14 @@ object Repository {
         val data: BaseResponse<SearchResultsData?>? = getDefaultApi().search(
             pageCount = pageCount, keyWord = keyWord
         )
+        return responseCall(data)
+    }
+
+    /**
+     * 我的收藏：文章列表
+     */
+    suspend fun myCollects(pageCount: String = "0"): MyCollectListData? {
+        val data: BaseResponse<MyCollectListData?>? = getDefaultApi().myCollects(pageCount)
         return responseCall(data)
     }
 
