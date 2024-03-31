@@ -21,7 +21,7 @@ object ApiAddress {
     const val Knowledge_List = "tree/json"
 
     //知识体系数据明细
-    const val Knowledge_List_detail = "article/list/0/json?cid=60"
+    const val Knowledge_List_detail = "article/list/"
 
     //登录
     const val Login = "user/login"

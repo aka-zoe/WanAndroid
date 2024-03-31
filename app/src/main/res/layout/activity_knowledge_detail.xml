@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="webVM"
-            type="com.zoe.wan.android.activity.web.WebViewModel" />
+            name="detailVm"
+            type="com.zoe.wan.android.activity.knowledge_detail.KnowledgeDetailViewModel" />
 
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,7 +20,7 @@
             android:background="@color/teal_700">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/webViewBack"
+                android:id="@+id/knowledgeDetailBack"
                 android:layout_width="@dimen/dp_25"
                 android:layout_height="@dimen/dp_25"
                 android:background="@drawable/icon_back"
@@ -30,10 +29,9 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/webViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{webVM.webTitle}"
+                android:text="知识体系"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_14"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -43,12 +41,21 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <WebView
-            android:id="@+id/webView"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/detailTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            app:tabIndicatorColor="@color/teal_700"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/purple_200"
+            app:tabTextColor="@color/black" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/detailViewPager2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
 

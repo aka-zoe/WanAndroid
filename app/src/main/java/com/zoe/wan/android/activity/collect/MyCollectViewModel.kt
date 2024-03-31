@@ -25,4 +25,12 @@ class MyCollectViewModel(application: Application) : BaseViewModel(application) 
             }
         }
     }
+
+    //取消收藏
+    fun cancelCollect(id: String, callback: (state: Boolean) -> Unit) {
+        viewModelScope.launch {
+            val data = Repository.cancelCollect(id)
+            callback.invoke(data)
+        }
+    }
 }

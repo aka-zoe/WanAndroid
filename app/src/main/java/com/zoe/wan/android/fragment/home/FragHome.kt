@@ -6,16 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zoe.wan.android.R
 import com.zoe.wan.android.BR
-import com.zoe.wan.android.common.HomeListAdapter
+import com.zoe.wan.android.adapter.HomeListAdapter
 import com.zoe.wan.android.databinding.FragmentHomeBinding
 import com.zoe.wan.android.repository.data.HomeListItemData
 import com.zoe.wan.base.BaseFragment
 import com.zoe.wan.base.adapter.AdapterCollectListener
 
 /**
- * 作者：Gongsensen
- * 日期：2022/10/12
- * 说明：主页
+ * 首页
  */
 class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private val adapter: HomeListAdapter = HomeListAdapter()

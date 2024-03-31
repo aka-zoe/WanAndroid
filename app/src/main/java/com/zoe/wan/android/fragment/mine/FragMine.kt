@@ -13,6 +13,9 @@ import com.zoe.wan.android.activity.about.AboutUsActivity
 import com.zoe.wan.android.activity.collect.MyCollectActivity
 import com.zoe.wan.android.activity.login.LoginActivity
 
+/**
+ * 我的页面
+ */
 class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
     override fun initVariableId(): Int {
         return BR.mineVm
@@ -37,13 +40,17 @@ class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
     private fun initClick() {
         //登录
         binding?.mineUserName?.setOnClickListener {
+            if(viewModel?.loginState?.get() == true){
+                return@setOnClickListener
+            }
             login()
         }
-//        binding?.mineUserName?.text = Html.fromHtml(getString(R.string.about_content))
-//        binding?.mineUserName?.movementMethod = LinkMovementMethod.getInstance()
 
         //登录
         binding?.mineUserHead?.setOnClickListener {
+            if(viewModel?.loginState?.get() == true){
+                return@setOnClickListener
+            }
             login()
         }
 

@@ -10,9 +10,7 @@ abstract class AdapterItemListener<T> {
 /**
  * 点击收藏/取消收藏
  */
-abstract class AdapterCollectListener<T> : AdapterItemListener<T>() {
-    override fun itemClick(item: T?, position: Int) {}
-
+abstract class AdapterCollectListener<T> {
     abstract fun collect(position: Int, id: String)
 
     abstract fun cancelCollect(position: Int, id: String)

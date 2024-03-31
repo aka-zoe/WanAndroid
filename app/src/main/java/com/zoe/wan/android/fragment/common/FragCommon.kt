@@ -8,13 +8,16 @@ import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
 import com.zoe.wan.android.activity.search.SearchActivity
 import com.zoe.wan.android.activity.web.WebActivity
-import com.zoe.wan.android.common.CommonItemListAdapter
+import com.zoe.wan.android.adapter.CommonItemListAdapter
 import com.zoe.wan.android.databinding.FragmentCommonBinding
 import com.zoe.wan.android.repository.data.CommonItem
 import com.zoe.wan.base.BaseFragment
 import com.zoe.wan.base.adapter.AdapterItemListener
 import com.zoe.wan.base.view.NoScrollLayoutManager
 
+/**
+ * 搜索热点、常用网站
+ */
 class FragCommon : BaseFragment<FragmentCommonBinding, CommonListViewModel>() {
 
     private var websiteListAdapter = CommonItemListAdapter()

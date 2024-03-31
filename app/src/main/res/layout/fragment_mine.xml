@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View"/>
 
         <variable
             name="mineVm"
@@ -35,9 +38,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="用户名"
+                android:text="@{mineVm.username}"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_14"
+                tools:text="用户名" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -111,6 +115,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
+            android:visibility="@{mineVm.loginState? View.VISIBLE:View.GONE}"
             android:id="@+id/mineLoginOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -14,7 +14,7 @@ import com.zoe.wan.android.databinding.ActivitySearchBinding
 import com.zoe.wan.base.BaseActivity
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.activity.web.WebActivity
-import com.zoe.wan.android.common.SearchResultsAdapter
+import com.zoe.wan.android.adapter.SearchResultsAdapter
 import com.zoe.wan.android.repository.data.SearchData
 import com.zoe.wan.base.adapter.AdapterItemListener
 

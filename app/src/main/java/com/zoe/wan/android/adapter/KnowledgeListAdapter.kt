@@ -1,4 +1,4 @@
-package com.zoe.wan.android.common
+package com.zoe.wan.android.adapter
 
 import android.view.ViewGroup
 import com.zoe.wan.android.R

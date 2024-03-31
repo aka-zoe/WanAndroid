@@ -4,6 +4,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.zoe.wan.android.repository.data.CommonItemListData
 import com.zoe.wan.android.repository.data.HomeBannerData
 import com.zoe.wan.android.repository.data.HomeListData
+import com.zoe.wan.android.repository.data.KnowledgeDetailListData
 import com.zoe.wan.android.repository.data.KnowledgeListData
 import com.zoe.wan.android.repository.data.MyCollectListData
 import com.zoe.wan.android.repository.data.SearchResultsData
@@ -70,6 +71,14 @@ object Repository {
      */
     suspend fun knowledgeList(): KnowledgeListData? {
         val data: BaseResponse<KnowledgeListData?>? = getDefaultApi().knowledgeList()
+        return responseCall(data)
+    }
+
+    /**
+     * 获取知识体系明细数据
+     */
+    suspend fun knowledgeListDetail(cid: String): KnowledgeDetailListData? {
+        val data: BaseResponse<KnowledgeDetailListData?>? = getDefaultApi().knowledgeListDetail(cid = cid)
         return responseCall(data)
     }
 

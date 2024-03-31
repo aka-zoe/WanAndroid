@@ -3,7 +3,9 @@ package com.zoe.wan.android.activity.login
 import android.app.Application
 import androidx.databinding.ObservableField
 import androidx.lifecycle.viewModelScope
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.zoe.wan.android.common.Constants
 import com.zoe.wan.android.repository.Repository
 import com.zoe.wan.android.repository.data.UserData
 import com.zoe.wan.base.BaseViewModel
@@ -34,6 +36,8 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         viewModelScope.launch {
             val data: UserData? = Repository.login(username.get() ?: "", password.get() ?: "")
             if (data != null) {
+                //保存用户名
+                SPUtils.getInstance().put(Constants.SP_USER_NAME,data.username)
                 //登录成功
                 actionState.postValue(true)
             } else {

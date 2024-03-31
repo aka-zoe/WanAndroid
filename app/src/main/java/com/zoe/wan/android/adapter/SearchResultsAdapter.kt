@@ -1,4 +1,4 @@
-package com.zoe.wan.android.common
+package com.zoe.wan.android.adapter
 
 import android.text.Html
 import android.view.ViewGroup
@@ -11,8 +11,7 @@ import com.zoe.wan.base.adapter.BaseViewHolder
 /**
  * 搜索返回列表适配器
  */
-class SearchResultsAdapter : BaseRecyclerAdapter<SearchData, SearchResultsAdapter
-.SearchViewHolder>() {
+class SearchResultsAdapter : BaseRecyclerAdapter<SearchData, SearchResultsAdapter.SearchViewHolder>() {
 
     class SearchViewHolder(itemSearchBinding: ItemSearchBinding) :
         BaseViewHolder<ItemSearchBinding>(itemSearchBinding)
