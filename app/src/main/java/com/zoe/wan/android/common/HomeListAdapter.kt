@@ -1,11 +1,8 @@
 package com.zoe.wan.android.common
 
 import android.content.Intent
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -21,9 +18,12 @@ import com.zoe.wan.android.databinding.ItemHomeListBinding
 import com.zoe.wan.android.repository.data.HomeBannerData
 import com.zoe.wan.android.repository.data.HomeBannerDataItem
 import com.zoe.wan.android.repository.data.HomeListItemData
+import com.zoe.wan.base.adapter.AdapterCollectListener
+import com.zoe.wan.base.adapter.BaseRecyclerAdapter
+import com.zoe.wan.base.adapter.BaseViewHolder
 
 
-class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeListAdapter : BaseRecyclerAdapter<HomeListItemData?, BaseViewHolder<*>>() {
 
     companion object {
         //banner item类型
@@ -36,13 +36,8 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private const val HeaderCount = 1
     }
 
-    private var list: List<HomeListItemData?> = arrayListOf()
     private var homeBannerData: HomeBannerData? = null
     private var collectListener: AdapterCollectListener<HomeListItemData?>? = null
-    fun setListData(list: List<HomeListItemData?>) {
-        this.list = list
-        notifyDataSetChanged()
-    }
 
     fun setBannerData(bannerData: HomeBannerData?) {
         this.homeBannerData = bannerData
@@ -57,94 +52,69 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
      * 收藏状态刷新
      */
     fun notifyCollectChange(position: Int, collect: Boolean) {
-        if (list.isEmpty()) {
+        if (getDataList()?.isEmpty() == true) {
             return
         }
 
-        list[position]?.collect = collect
+        getDataList()?.get(position)?.collect = collect
         notifyDataSetChanged()
     }
 
     class MyViewHolder(itemDatabind: ItemHomeListBinding) :
-        RecyclerView.ViewHolder(itemDatabind.root) {
-        var itemDataBind: ItemHomeListBinding
+        BaseViewHolder<ItemHomeListBinding>(itemDatabind)
 
-        init {
-            this.itemDataBind = itemDatabind
-        }
-    }
-
-    class BannerViewHolder(itemHomeBannerBinding: ItemHomeBannerBinding) : RecyclerView.ViewHolder
-        (itemHomeBannerBinding.root) {
-        var itemDataBind: ItemHomeBannerBinding
-
-        init {
-            this.itemDataBind = itemHomeBannerBinding
-        }
-    }
+    class BannerViewHolder(itemHomeBannerBinding: ItemHomeBannerBinding) :
+        BaseViewHolder<ItemHomeBannerBinding>(itemHomeBannerBinding)
 
 
     /**
      * 判断当前的item类型
      */
     override fun getItemViewType(position: Int): Int {
-        if(HeaderCount != 0 && position < HeaderCount) {
+        if (HeaderCount != 0 && position < HeaderCount) {
             return ItemTypeBannerHeader
         } else {
             return ItemTypeList
         }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): RecyclerView.ViewHolder {
-
+    override fun getViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         if (viewType == ItemTypeList) {
-            return MyViewHolder(
-                DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context),
-                    R.layout.item_home_list, parent, false
-                )
-            )
+            return MyViewHolder(getBinding<ItemHomeListBinding>(parent, R.layout.item_home_list))
         } else {
             //banner类型
             return BannerViewHolder(
-                DataBindingUtil.inflate(
-                    LayoutInflater.from
-                        (parent.context), R.layout.item_home_banner, parent, false
+                getBinding<ItemHomeBannerBinding>(
+                    parent,
+                    R.layout.item_home_banner
                 )
             )
         }
-
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun bindHolder(holder: BaseViewHolder<*>, position: Int) {
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         //绑定viewHolder，数据绑定
         if (holder is MyViewHolder) {
-            val item: HomeListItemData? = list[position]
-            holder.itemDataBind.item = item
+            val item: HomeListItemData? = getDataList()?.get(position)
+            holder.binding.item = item
             //文章是否收藏状态
             if (item?.collect == true) {
-                holder.itemDataBind.itemHomeCollect.setBackgroundResource(R.drawable.img_collect)
+                holder.binding.itemHomeCollect.setBackgroundResource(R.drawable.img_collect)
             } else {
-                holder.itemDataBind.itemHomeCollect.setBackgroundResource(
+                holder.binding.itemHomeCollect.setBackgroundResource(
                     R.drawable
                         .img_collect_grey
                 )
             }
             //是否置顶
             if (item?.type == 1) {
-                holder.itemDataBind.itemHomeTopTag.text = "置顶"
+                holder.binding.itemHomeTopTag.text = "置顶"
             } else {
-                holder.itemDataBind.itemHomeTopTag.text = ""
+                holder.binding.itemHomeTopTag.text = ""
             }
             //点击进入链接
-            holder.itemDataBind.itemHomeLinear.setOnClickListener {
+            holder.binding.itemHomeLinear.setOnClickListener {
                 var intent = Intent(it.context, WebActivity::class.java)
                 intent.putExtra(WebActivity.intentKeyTitle, item?.title)
                 intent.putExtra(WebActivity.intentKeyUrl, item?.link)
@@ -153,12 +123,12 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
 
             //点击查看专栏
-            holder.itemDataBind.itemHomeChapter.setOnClickListener {
+            holder.binding.itemHomeChapter.setOnClickListener {
                 Toast.makeText(it.context, "Chapter被点击了", Toast.LENGTH_LONG).show()
             }
 
             //点击收藏/取消收藏
-            holder.itemDataBind.itemHomeCollect.setOnClickListener {
+            holder.binding.itemHomeCollect.setOnClickListener {
                 if (item?.collect == true) {
                     //取消收藏
                     collectListener?.cancelCollect(position, "${item.id}")
@@ -169,10 +139,10 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         } else if (holder is BannerViewHolder) {
             //banner标题
-            holder.itemDataBind.itemBannerTitle.text = homeBannerData?.get(0)?.title
+            holder.binding.itemBannerTitle.text = homeBannerData?.get(0)?.title
             //配置适配器、指示器、滑动事件监听
-            holder.itemDataBind.itemBanner.setAdapter(BannerAdapter(homeBannerData))
-                .setIndicator(CircleIndicator(holder.itemDataBind.itemBanner.context))
+            holder.binding.itemBanner.setAdapter(BannerAdapter(homeBannerData))
+                .setIndicator(CircleIndicator(holder.binding.itemBanner.context))
                 .addOnPageChangeListener(object : OnPageChangeListener {
                     override fun onPageScrolled(
                         position: Int,
@@ -184,7 +154,7 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
                     override fun onPageSelected(position: Int) {
                         //当banner切换时，标题同步切换
-                        holder.itemDataBind.itemBannerTitle.text =
+                        holder.binding.itemBannerTitle.text =
                             homeBannerData?.get(position)?.title
 
                     }
@@ -203,15 +173,14 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 //                        ).show()
 
                         var intent =
-                            Intent(holder.itemDataBind.itemBanner.context, WebActivity::class.java)
+                            Intent(holder.binding.itemBanner.context, WebActivity::class.java)
                         intent.putExtra(WebActivity.intentKeyTitle, data?.title)
                         intent.putExtra(WebActivity.intentKeyUrl, data?.url)
-                        holder.itemDataBind.itemBanner.context.startActivity(intent)
+                        holder.binding.itemBanner.context.startActivity(intent)
                     }
 
                 })
         }
-
     }
 
     /**

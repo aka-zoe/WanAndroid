@@ -6,16 +6,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseRecyclerAdapter<D, B : ViewDataBinding, V : BaseViewHolder<B>> :
+abstract class BaseRecyclerAdapter<D, V : RecyclerView.ViewHolder> :
     RecyclerView.Adapter<V>() {
 
-    private var listData: List<D>? = null
+    private var listData: List<D?>? = null
     private var itemListener: AdapterItemListener<D>? = null
 
     /**
      * 赋值并刷新列表
      */
-    fun setDataList(data: List<D>?) {
+    fun setDataList(data: List<D?>?) {
         listData = data
         notifyDataSetChanged()
     }
@@ -23,7 +23,7 @@ abstract class BaseRecyclerAdapter<D, B : ViewDataBinding, V : BaseViewHolder<B>
     /**
      * 方便获取数据源
      */
-    fun getDataList(): List<D>? {
+    fun getDataList(): List<D?>? {
         return listData
     }
 
@@ -42,7 +42,7 @@ abstract class BaseRecyclerAdapter<D, B : ViewDataBinding, V : BaseViewHolder<B>
     /**
      * 通过[getBinding]获取ViewHolder
      */
-    abstract fun getViewHolder(parent: ViewGroup): V
+    abstract fun getViewHolder(parent: ViewGroup, viewType: Int): V
 
     /**
      * 在重载方法[onBindViewHolder]内调用，在此方法内实现item业务逻辑
@@ -52,7 +52,7 @@ abstract class BaseRecyclerAdapter<D, B : ViewDataBinding, V : BaseViewHolder<B>
     /**
      * 使用[DataBindingUtil]获取item布局返回binding
      */
-    fun getBinding(parent: ViewGroup,layoutId:Int): B {
+    fun <B : ViewDataBinding> getBinding(parent: ViewGroup, layoutId: Int): B {
         return DataBindingUtil.inflate(
             LayoutInflater.from(parent.context), layoutId, parent, false
         )
@@ -70,15 +70,15 @@ abstract class BaseRecyclerAdapter<D, B : ViewDataBinding, V : BaseViewHolder<B>
      * 通过[getViewHolder]获取ViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): V {
-        return getViewHolder(parent)
+        return getViewHolder(parent, viewType)
     }
 
     /**
      * 封装了item的点击事件，并调用[bindHolder]
      */
     override fun onBindViewHolder(holder: V, position: Int) {
-        //item点击事件
-        holder.binding.root.setOnClickListener {
+        holder.itemView.setOnClickListener {
+            //item点击事件
             itemListener?.itemClick(getDataList()?.get(position), position)
         }
         bindHolder(holder, position)

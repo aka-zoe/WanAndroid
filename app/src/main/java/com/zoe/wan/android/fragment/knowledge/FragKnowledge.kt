@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.zoe.wan.android.R
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.activity.knowledge_detail.KnowledgeDetailActivity
-import com.zoe.wan.android.common.AdapterItemListener
 import com.zoe.wan.android.common.KnowledgeListAdapter
 import com.zoe.wan.android.databinding.FragmentKnowledgeBinding
 import com.zoe.wan.android.repository.data.KnowledgeItem
 import com.zoe.wan.base.BaseFragment
+import com.zoe.wan.base.adapter.AdapterItemListener
 
 /**
  * 作者：Gongsensen
@@ -43,7 +43,7 @@ class FragKnowledge : BaseFragment<FragmentKnowledgeBinding, KnowledgeViewModel>
 
         binding?.fragKnowledgeListView?.adapter = adapter
         //点击进入明细
-        adapter.setItemClick(object : AdapterItemListener<KnowledgeItem>() {
+        adapter.setItemListener(object : AdapterItemListener<KnowledgeItem>() {
             override fun itemClick(item: KnowledgeItem?, position: Int) {
                 val intent = Intent(context, KnowledgeDetailActivity::class.java)
                 startActivity(intent)

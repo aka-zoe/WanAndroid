@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zoe.wan.android.R
 import com.zoe.wan.android.BR
-import com.zoe.wan.android.common.AdapterCollectListener
 import com.zoe.wan.android.common.HomeListAdapter
 import com.zoe.wan.android.databinding.FragmentHomeBinding
 import com.zoe.wan.android.repository.data.HomeListItemData
 import com.zoe.wan.base.BaseFragment
+import com.zoe.wan.base.adapter.AdapterCollectListener
 
 /**
  * 作者：Gongsensen
@@ -41,7 +41,7 @@ class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             if (list != null && list?.isNotEmpty() == true) {
                 //给适配器添加数据
                 binding?.homeTabListView?.post {
-                    adapter.setListData(list)
+                    adapter.setDataList(list)
                 }
 
             }

@@ -8,11 +8,11 @@ import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
 import com.zoe.wan.android.activity.search.SearchActivity
 import com.zoe.wan.android.activity.web.WebActivity
-import com.zoe.wan.android.common.AdapterItemListener
 import com.zoe.wan.android.common.CommonItemListAdapter
 import com.zoe.wan.android.databinding.FragmentCommonBinding
 import com.zoe.wan.android.repository.data.CommonItem
 import com.zoe.wan.base.BaseFragment
+import com.zoe.wan.base.adapter.AdapterItemListener
 import com.zoe.wan.base.view.NoScrollLayoutManager
 
 class FragCommon : BaseFragment<FragmentCommonBinding, CommonListViewModel>() {
@@ -62,7 +62,7 @@ class FragCommon : BaseFragment<FragmentCommonBinding, CommonListViewModel>() {
 
 
         //点击热点进入搜索页面
-        hotKeyListAdapter.setItemClick(object : AdapterItemListener<CommonItem>() {
+        hotKeyListAdapter.setItemListener(object : AdapterItemListener<CommonItem>() {
 
             override fun itemClick(item: CommonItem?, position: Int) {
                 val intent = Intent(context, SearchActivity::class.java)
@@ -73,7 +73,7 @@ class FragCommon : BaseFragment<FragmentCommonBinding, CommonListViewModel>() {
         })
 
         //点击进入常用网站
-        websiteListAdapter.setItemClick(object : AdapterItemListener<CommonItem>() {
+        websiteListAdapter.setItemListener(object : AdapterItemListener<CommonItem>() {
 
             override fun itemClick(item: CommonItem?, position: Int) {
                 val intent = Intent(context, WebActivity::class.java)

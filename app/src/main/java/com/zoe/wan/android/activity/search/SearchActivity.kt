@@ -14,9 +14,9 @@ import com.zoe.wan.android.databinding.ActivitySearchBinding
 import com.zoe.wan.base.BaseActivity
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.activity.web.WebActivity
-import com.zoe.wan.android.common.AdapterItemListener
 import com.zoe.wan.android.common.SearchResultsAdapter
 import com.zoe.wan.android.repository.data.SearchData
+import com.zoe.wan.base.adapter.AdapterItemListener
 
 class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
@@ -77,7 +77,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                 LinearLayoutManager.VERTICAL
             )
         )
-        adapter.setItemClick(object : AdapterItemListener<SearchData?>() {
+        adapter.setItemListener(object : AdapterItemListener<SearchData>() {
             override fun itemClick(item: SearchData?, position: Int) {
                 val intent = Intent(this@SearchActivity, WebActivity::class.java)
                 intent.putExtra(WebActivity.intentKeyTitle, item?.title)

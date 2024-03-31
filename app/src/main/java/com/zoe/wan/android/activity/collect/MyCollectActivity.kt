@@ -6,9 +6,9 @@ import com.zoe.wan.android.databinding.ActivityCollectBinding
 import com.zoe.wan.base.BaseActivity
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
-import com.zoe.wan.android.common.AdapterItemListener
 import com.zoe.wan.android.common.MyCollectListAdapter
 import com.zoe.wan.android.repository.data.CollectListData
+import com.zoe.wan.base.adapter.AdapterItemListener
 
 /**
  * 我的收藏
@@ -33,7 +33,9 @@ class MyCollectActivity : BaseActivity<ActivityCollectBinding, MyCollectViewMode
             }
         }
 
-        adapter.setItemClick(object:AdapterItemListener<CollectListData>(){
+
+
+        adapter.setItemListener(object: AdapterItemListener<CollectListData>(){
             override fun itemClick(item: CollectListData?, position: Int) {
 
             }
