@@ -7,10 +7,12 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.blankj.utilcode.util.LogUtils
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
 import com.zoe.wan.android.databinding.ActivityWebBinding
 import com.zoe.wan.base.BaseActivity
+
 
 class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
     companion object {
@@ -66,13 +68,22 @@ class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
             override fun shouldOverrideUrlLoading(
                 view: WebView?, url: String?
             ): Boolean {
+//                if(url?.startsWith("http://") == false || url?.startsWith("https://") == false){
+//                    val intent =
+//                        Intent(Intent.ACTION_VIEW, Uri.parse(url))
+//                    startActivity(intent)
+//                }else{
+                LogUtils.d("网页内url变化：${url}")
                 view?.loadUrl(url ?: "")
+//                }
                 return true
             }
         }
 
         binding?.webView?.webChromeClient = object : WebChromeClient() {
-
+            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                super.onProgressChanged(view, newProgress)
+            }
         }
     }
 
