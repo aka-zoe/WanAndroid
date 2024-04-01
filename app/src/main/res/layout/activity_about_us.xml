@@ -52,7 +52,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
-                android:background="@mipmap/ic_launcher_round"
+                android:background="@mipmap/app_logo"
                 app:shapeAppearance="@style/rounded_style"
                 app:strokeColor="@color/white"
                 app:strokeWidth="@dimen/dp_0_5" />

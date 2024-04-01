@@ -91,7 +91,7 @@ class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
         super.onStop()
         binding?.webView?.settings?.javaScriptEnabled = false
     }
-
+ 
     /**
      * 假如在webview里按下返回键，优先返回webview内的页面
      */

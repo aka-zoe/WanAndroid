@@ -28,7 +28,7 @@
                 android:id="@+id/mineUserHead"
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="@dimen/dp_100"
-                android:background="@mipmap/ic_launcher_round"
+                android:background="@mipmap/app_logo"
                 app:shapeAppearance="@style/rounded_style"
                 app:strokeColor="@color/white"
                 app:strokeWidth="@dimen/dp_0_5" />
