@@ -1,8 +1,24 @@
 package com.zoe.wan.android.debug
 
 import android.app.Application
+import androidx.lifecycle.viewModelScope
+import com.zoe.wan.android.repository.Repository
+import com.zoe.wan.android.repository.data.KnowledgeItem
 import com.zoe.wan.base.BaseViewModel
+import com.zoe.wan.base.SingleLiveEvent
+import kotlinx.coroutines.launch
 
-class DebugViewModel(application: Application):BaseViewModel(application) {
+class DebugViewModel(application: Application) : BaseViewModel(application) {
+    val knowledgeList = SingleLiveEvent<List<KnowledgeItem?>?>()
 
+    init {
+        knowledgeList()
+    }
+
+    private fun knowledgeList() {
+        viewModelScope.launch {
+            val data = Repository.knowledgeList()
+            knowledgeList.postValue(data ?: emptyList())
+        }
+    }
 }

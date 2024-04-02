@@ -1,6 +1,5 @@
 package com.zoe.wan.android.activity.web
 
-import android.os.Bundle
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_BACK
 import android.webkit.WebChromeClient
@@ -21,16 +20,20 @@ class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
 
     }
 
-    override fun initVariableId(): Int {
-        return BR.webVM
+    override fun onStop() {
+        super.onStop()
+        binding?.webView?.settings?.javaScriptEnabled = false
     }
 
-    override fun initContentView(savedInstanceState: Bundle?): Int {
+    override fun getLayoutId(): Int {
         return R.layout.activity_web
     }
 
-    override fun initView() {
+    override fun getViewModelId(): Int {
+        return BR.webVM
+    }
 
+    override fun initViewData() {
         val loadUrl = intent.getStringExtra(intentKeyUrl)
         var webTitle = intent.getStringExtra(intentKeyTitle)
         webTitle = if ((webTitle?.length ?: 0) >= 20) {
@@ -87,11 +90,6 @@ class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        binding?.webView?.settings?.javaScriptEnabled = false
-    }
- 
     /**
      * 假如在webview里按下返回键，优先返回webview内的页面
      */

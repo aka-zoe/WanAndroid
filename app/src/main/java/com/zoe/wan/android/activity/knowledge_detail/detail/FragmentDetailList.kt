@@ -1,9 +1,6 @@
 package com.zoe.wan.android.activity.knowledge_detail.detail
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zoe.wan.android.R
 import com.zoe.wan.android.BR
@@ -22,16 +19,13 @@ class FragmentDetailList(val name: String, val cid: String) :
         FragDetailViewModel>() {
 
     private val adapter = DetailListAdapter()
-    override fun initVariableId(): Int {
-        return BR.fragDetailVm
+
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_knowledge_detail
     }
 
-    override fun initContentView(
-        inflater: LayoutInflater?,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): Int {
-        return R.layout.fragment_knowledge_detail
+    override fun getViewModelId(): Int {
+        return BR.fragDetailVm
     }
 
     override fun initViewData() {

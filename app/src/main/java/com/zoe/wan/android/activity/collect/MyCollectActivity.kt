@@ -1,15 +1,14 @@
 package com.zoe.wan.android.activity.collect
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zoe.wan.android.databinding.ActivityCollectBinding
-import com.zoe.wan.base.BaseActivity
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
 import com.zoe.wan.android.activity.web.WebActivity
 import com.zoe.wan.android.adapter.MyCollectListAdapter
 import com.zoe.wan.android.repository.data.CollectListData
+import com.zoe.wan.base.BaseActivity
 import com.zoe.wan.base.adapter.AdapterCollectListener
 import com.zoe.wan.base.adapter.AdapterItemListener
 
@@ -18,15 +17,16 @@ import com.zoe.wan.base.adapter.AdapterItemListener
  */
 class MyCollectActivity : BaseActivity<ActivityCollectBinding, MyCollectViewModel>() {
     private val adapter = MyCollectListAdapter()
-    override fun initVariableId(): Int {
-        return BR.myCollectVm
-    }
 
-    override fun initContentView(savedInstanceState: Bundle?): Int {
+    override fun getLayoutId(): Int {
         return R.layout.activity_collect
     }
 
-    override fun initView() {
+    override fun getViewModelId(): Int {
+        return BR.myCollectVm
+    }
+
+    override fun initViewData() {
         binding?.collectBack?.setOnClickListener {
             finish()
         }

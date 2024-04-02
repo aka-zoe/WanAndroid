@@ -1,9 +1,6 @@
 package com.zoe.wan.android.fragment.common
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
 import com.zoe.wan.android.activity.search.SearchActivity
@@ -22,16 +19,13 @@ class FragCommon : BaseFragment<FragmentCommonBinding, CommonListViewModel>() {
 
     private var websiteListAdapter = CommonItemListAdapter()
     private var hotKeyListAdapter = CommonItemListAdapter()
-    override fun initVariableId(): Int {
-        return BR.itemListVm
+
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_common
     }
 
-    override fun initContentView(
-        inflater: LayoutInflater?,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): Int {
-        return R.layout.fragment_common
+    override fun getViewModelId(): Int {
+        return BR.itemListVm
     }
 
 

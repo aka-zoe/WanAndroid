@@ -1,7 +1,6 @@
 package com.zoe.wan.android.activity.home
 
 import android.graphics.BitmapFactory
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.LogUtils
@@ -17,15 +16,15 @@ import com.zoe.wan.base.adapter.Pager2Adapter
 import com.zoe.wan.base.tab.NavigationBottomBar
 
 class TabActivity : BaseActivity<ActivityTabBinding, TabViewModel>() {
-    override fun initVariableId(): Int {
+    override fun getLayoutId(): Int {
+        return R.layout.activity_tab
+    }
+
+    override fun getViewModelId(): Int {
         return BR.homeVm
     }
 
-    override fun initContentView(savedInstanceState: Bundle?): Int {
-        return R.layout.activity_tab;
-    }
-
-    override fun initView() {
+    override fun initViewData() {
         initPageModule()
         val icons = arrayOf(
             BitmapFactory.decodeResource(resources, R.drawable.icon_home_selected),

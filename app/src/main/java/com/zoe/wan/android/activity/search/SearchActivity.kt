@@ -1,7 +1,6 @@
 package com.zoe.wan.android.activity.search
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -11,11 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.KeyboardUtils
 import com.zoe.wan.android.R
 import com.zoe.wan.android.databinding.ActivitySearchBinding
-import com.zoe.wan.base.BaseActivity
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.activity.web.WebActivity
 import com.zoe.wan.android.adapter.SearchResultsAdapter
 import com.zoe.wan.android.repository.data.SearchData
+import com.zoe.wan.base.BaseActivity
 import com.zoe.wan.base.adapter.AdapterItemListener
 
 class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
@@ -26,15 +25,16 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
         const val Itent_Keyword = "Itent_Keyword"
     }
 
-    override fun initVariableId(): Int {
-        return BR.searchVm
-    }
 
-    override fun initContentView(savedInstanceState: Bundle?): Int {
+    override fun getLayoutId(): Int {
         return R.layout.activity_search
     }
 
-    override fun initView() {
+    override fun getViewModelId(): Int {
+        return BR.searchVm
+    }
+
+    override fun initViewData() {
         //获取上一级页面可能携带来的搜索条件并搜索
         val keyword = intent.getStringExtra(Itent_Keyword)
         viewModel?.searchInput?.set(keyword)
@@ -67,6 +67,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
         initListView()
     }
+
 
     private fun initListView() {
         binding?.searchListView?.layoutManager = LinearLayoutManager(this@SearchActivity)

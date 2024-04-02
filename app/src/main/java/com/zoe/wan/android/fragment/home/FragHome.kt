@@ -1,8 +1,5 @@
 package com.zoe.wan.android.fragment.home
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zoe.wan.android.R
 import com.zoe.wan.android.BR
@@ -18,16 +15,12 @@ import com.zoe.wan.base.adapter.AdapterCollectListener
 class FragHome : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private val adapter: HomeListAdapter = HomeListAdapter()
 
-    override fun initVariableId(): Int {
-        return BR.fragHomeVm;
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_home
     }
 
-    override fun initContentView(
-        inflater: LayoutInflater?,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): Int {
-        return R.layout.fragment_home
+    override fun getViewModelId(): Int {
+        return BR.fragHomeVm
     }
 
     override fun initViewData() {

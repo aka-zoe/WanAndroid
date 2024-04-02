@@ -2,8 +2,6 @@ package com.zoe.wan.android.fragment.knowledge
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.LogUtils
 import com.zoe.wan.android.R
@@ -23,16 +21,13 @@ import com.zoe.wan.base.adapter.AdapterItemListener
 class FragKnowledge : BaseFragment<FragmentKnowledgeBinding, KnowledgeViewModel>() {
 
     private var adapter = KnowledgeListAdapter()
-    override fun initVariableId(): Int {
-        return BR.fragKlVm;
+
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_knowledge
     }
 
-    override fun initContentView(
-        inflater: LayoutInflater?,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): Int {
-        return R.layout.fragment_knowledge
+    override fun getViewModelId(): Int {
+        return BR.fragKlVm
     }
 
 
@@ -48,7 +43,7 @@ class FragKnowledge : BaseFragment<FragmentKnowledgeBinding, KnowledgeViewModel>
             override fun itemClick(item: KnowledgeItem?, position: Int) {
 
                 //初始化传递的数据
-                val intentList:DetailIntentList
+                val intentList: DetailIntentList
                 val tabList = mutableListOf<DetailTabIntentData>()
 
                 item?.let {

@@ -1,13 +1,12 @@
 package com.zoe.wan.android.activity.login
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import com.zoe.wan.android.databinding.ActivityLoginBinding
-import com.zoe.wan.base.BaseActivity
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
 import com.zoe.wan.android.activity.home.TabActivity
+import com.zoe.wan.base.BaseActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
@@ -19,15 +18,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     private var type = loginType
 
-    override fun initVariableId(): Int {
-        return BR.loginVm
-    }
 
-    override fun initContentView(savedInstanceState: Bundle?): Int {
+    override fun getLayoutId(): Int {
         return R.layout.activity_login
     }
 
-    override fun initView() {
+    override fun getViewModelId(): Int {
+        return BR.loginVm
+    }
+
+    override fun initViewData() {
         //当前意图是登录还是注册，不传默认登录
         type = intent.getIntExtra(Intent_Type, loginType)
         if (type == loginType) {
@@ -55,6 +55,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             }
         }
     }
+
 
     private fun initListener() {
         //登录/注册 按钮事件

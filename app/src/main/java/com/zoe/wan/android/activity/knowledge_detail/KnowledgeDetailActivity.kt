@@ -25,17 +25,28 @@ class KnowledgeDetailActivity : BaseActivity<ActivityKnowledgeDetailBinding,
         const val INTENT_BUNDLE = "INTENT_BUNDLE"
     }
 
-    override fun initVariableId(): Int {
-        return BR.detailVm
+    private fun initPageModule(list: List<DetailTabIntentData>) {
+        val pageFragList = mutableListOf<Fragment>()
+        list.forEach { data ->
+            pageFragList.add(FragmentDetailList(name = data.name ?: "", cid = data.id))
+        }
+        val pageAdapter = Pager2Adapter(this)
+        pageAdapter.setData(pageFragList)
+        //默认不做预加载Fragment
+        binding?.detailViewPager2?.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
+        binding?.detailViewPager2?.adapter = pageAdapter
     }
 
-    override fun initContentView(savedInstanceState: Bundle?): Int {
+    override fun getLayoutId(): Int {
         return R.layout.activity_knowledge_detail
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    override fun initView() {
+    override fun getViewModelId(): Int {
+        return BR.detailVm
+    }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    override fun initViewData() {
         binding?.knowledgeDetailBack?.setOnClickListener {
             finish()
         }
@@ -65,20 +76,6 @@ class KnowledgeDetailActivity : BaseActivity<ActivityKnowledgeDetailBinding,
             binding.tabItemTitle.text = intentList?.list?.get(position)?.name
             tab.customView = binding.root
         }.attach()
-
-
-    }
-
-    private fun initPageModule(list: List<DetailTabIntentData>) {
-        val pageFragList = mutableListOf<Fragment>()
-        list.forEach { data ->
-            pageFragList.add(FragmentDetailList(name = data.name ?: "", cid = data.id))
-        }
-        val pageAdapter = Pager2Adapter(this)
-        pageAdapter.setData(pageFragList)
-        //默认不做预加载Fragment
-        binding?.detailViewPager2?.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
-        binding?.detailViewPager2?.adapter = pageAdapter
     }
 
 }

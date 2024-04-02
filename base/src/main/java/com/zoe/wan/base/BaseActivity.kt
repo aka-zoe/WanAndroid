@@ -1,114 +1,64 @@
 package com.zoe.wan.base
 
-
-import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
-import com.zoe.wan.base.BaseViewModel.Companion.ParameterField.BUNDLE
-import com.zoe.wan.base.BaseViewModel.Companion.ParameterField.CLASS
-import com.zoe.wan.base.BaseViewModel.Companion.ParameterField.REQUEST
 import java.lang.reflect.ParameterizedType
 
-abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel> : RxAppCompatActivity(),
-    IBaseView {
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
 
-    open var binding: V? = null
+    open var binding: B? = null
     open var viewModel: VM? = null
-    open var viewModelId = 0
 
+    /**
+     * 返回layout
+     */
+    abstract fun getLayoutId(): Int
+
+    /**
+     * 返回vm id，通过package.BR获取
+     */
+    abstract fun getViewModelId(): Int
+
+    /**
+     * 执行控件与业务逻辑
+     */
+    abstract fun initViewData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        initViewDataBinding(savedInstanceState)
-        //页面接受的参数方法
-        initView()
-        //私有的ViewModel与View的契约事件回调逻辑
-        registerUIChangeLiveDataCallBack()
-        //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
-        initObservableData()
+        initBase()
+        setContentView(binding?.root)
+        initViewData()
     }
 
+    private fun initBase() {
+        //初始化binding
+        binding = DataBindingUtil.setContentView(this@BaseActivity, getLayoutId())
 
-    private fun registerUIChangeLiveDataCallBack() {
-
-        //跳入新页面
-        viewModel?.getUC()?.getStartActivityEvent()?.observe(this) { params ->
-
-            params?.let {
-                val clz = params[CLASS] as Class<*>?
-                val intent = Intent(this@BaseActivity, clz)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-                val bundle = params[BUNDLE]
-                if (bundle is Bundle) {
-                    intent.putExtras((bundle as Bundle?)!!)
-                }
-                startActivityForResult(intent, params[REQUEST] as Int)
-            }
-
-        }
-        viewModel?.getUC()?.getFinishResult()?.observe(this) { integer ->
-            integer?.let {
-                setResult(integer)
-                finish()
-            }
-        }
-
-
-
-        //关闭界面
-        viewModel?.getUC()?.getFinishEvent()?.observe(this) { finish() }
-        //关闭上一层
-
-        viewModel?.getUC()?.getOnBackPressedEvent()?.observe(this) { onBackPressed() }
-
-        viewModel?.getUC()?.getSetResultEvent()?.observe(this) { params ->
-            params?.let {
-                val intent = Intent()
-                if (params.isNotEmpty()) {
-                    val strings: Set<String> = params.keys
-                    for (string in strings) {
-                        intent.putExtra(string, params[string])
-                    }
-                }
-                setResult(RESULT_OK, intent)
-            }
-
-        }
-    }
-
-    private fun initViewDataBinding(savedInstanceState: Bundle?) {
-        //DataBindingUtil类需要在project的build中配置 dataBinding {enabled true }, 同步后会自动关联android.databinding包
-        binding =
-            DataBindingUtil.setContentView(this@BaseActivity, initContentView(savedInstanceState))
-
-
-        viewModelId = initVariableId()
+        //获取ViewModel类型
         val modelClass: Class<BaseViewModel>
+        //获取带有泛型的父类
         val type = javaClass.genericSuperclass
+        //ParameterizedType参数化类型，即泛型
         modelClass = if (type is ParameterizedType) {
+            //getActualTypeArguments获取参数化类型的数组，泛型可能有多个，这里我们默认第二个泛型是ViewModel
             type.actualTypeArguments[1] as Class<BaseViewModel>
         } else {
-            //如果没有指定泛型参数，则默认使用BaseViewModel
+            //如果没有指定泛型参数，则默认使用ViewModel
             BaseViewModel::class.java
         }
 
-
+        //初始化viewModel
         viewModel = createViewModel(this, modelClass as Class<VM>)
-        //关联ViewModel
-        binding?.setVariable(viewModelId, viewModel)
-        //支持LiveData绑定xml，数据改变，UI自动会更新
+        //viewmodel与view绑定
+        binding?.setVariable(getViewModelId(), viewModel)
+        //绑定生命周期
         binding?.lifecycleOwner = this
-        //让ViewModel拥有View的生命周期感应
-        lifecycle.addObserver(viewModel!!)
-        //注入RxLifecycle生命周期
-        viewModel?.injectLifecycleProvider(this)
-
 
     }
 
@@ -128,30 +78,4 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel> : RxAppComp
     open fun <T : ViewModel> createViewModel(activity: FragmentActivity?, cls: Class<T>?): T {
         return ViewModelProvider(activity!!)[cls!!]
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        viewModel?.onActivityResult(requestCode, resultCode, data)
-    }
-
-
-    /**
-     * 提供livedata 或者flow 数据流观察回调
-     */
-    override fun initObservableData() {
-    }
-
-    /**
-     * 返回vaeriableId
-     */
-    abstract fun initVariableId(): Int
-
-    /**
-     * 返回布局id
-     */
-    abstract fun initContentView(savedInstanceState: Bundle?): Int
-
 }
-
-
-

@@ -1,32 +1,26 @@
 package com.zoe.wan.android.fragment.mine
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import com.blankj.utilcode.util.ToastUtils
 import com.zoe.wan.android.databinding.FragmentMineBinding
-import com.zoe.wan.base.BaseFragment
 import com.zoe.wan.android.BR
 import com.zoe.wan.android.R
 import com.zoe.wan.android.activity.about.AboutUsActivity
 import com.zoe.wan.android.activity.collect.MyCollectActivity
 import com.zoe.wan.android.activity.login.LoginActivity
+import com.zoe.wan.base.BaseFragment
 
 /**
  * 我的页面
  */
 class FragMine : BaseFragment<FragmentMineBinding, MineViewModel>() {
-    override fun initVariableId(): Int {
-        return BR.mineVm
+
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_mine
     }
 
-    override fun initContentView(
-        inflater: LayoutInflater?,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): Int {
-        return R.layout.fragment_mine
+    override fun getViewModelId(): Int {
+        return BR.mineVm
     }
 
     override fun initViewData() {
